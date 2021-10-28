@@ -20,21 +20,24 @@ public class BookController extends BaseController {
     @Autowired
     private BookService service;
 
+    @PreAuthorize("permitAll()")
     @GetMapping
     public RestResult get(@RequestParam(value = "param", required = false) String param,
                           @RequestParam(value = "offset") int offset,
                           @RequestParam(value = "limit") int limit) throws JsonProcessingException {
         Book book = param != null ? new ObjectMapper().readValue(param, Book.class) : null;
         long rows = service.count(book);
-        return new RestResult(rows > 0 ? service.find(book, offset, limit) : new ArrayList<>());
+        return new RestResult(rows > 0 ? service.find(book, offset, limit) : new ArrayList<>(), rows);
     }
 
+    @PreAuthorize("permitAll()")
     @PostMapping
     public RestResult save(@RequestBody Book param){
         param = service.save(param);
         return new RestResult(param, param != null ? StatusCode.SAVE_SUCCESS : StatusCode.SAVE_FAILED);
     }
 
+    @PreAuthorize("permitAll()")
     @PutMapping
     public RestResult update(@RequestBody Book book){
         book = service.update(book);

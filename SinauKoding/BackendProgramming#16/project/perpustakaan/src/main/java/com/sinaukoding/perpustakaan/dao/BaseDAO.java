@@ -41,7 +41,7 @@ public abstract class BaseDAO<T extends BaseEntity> {
         return listResult(query, predicates(param, builder, root, false), offset, limit);
     }
 
-    /*count hitung baris yg di tampilkan*/
+    /*count baris yg di tampilkan*/
     public Long count(T param){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);
@@ -61,7 +61,7 @@ public abstract class BaseDAO<T extends BaseEntity> {
 
     /*function update*/
     public T update(T entity){
-        if (entity != null && entity.getId() == null){
+        if (entity != null && entity.getId() != null){
             T reference = findReference(entity.getId());
             entity.setCreatedTime(reference.getCreatedTime());
 

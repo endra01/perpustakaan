@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 
-public class LoadDAO extends BaseDAO<Loan> {
+public class LoanDAO extends BaseDAO<Loan> {
     @Override
     public List<Predicate> predicates(Loan param, CriteriaBuilder builder, Root<Loan> root, boolean isCount) {
         List<Predicate> predicates = super.predicates(param, builder, root, isCount);

@@ -19,7 +19,7 @@ public class Book extends BaseEntity<Book> {
 
     private static final long serialVersionUID = -5223709546195523515L;
     @Column(name = "title", columnDefinition = "VARCHAR(50)")
-    private String tittle;
+    private String title;
 
     @Column(name = "isbn")
     private String isbn;
