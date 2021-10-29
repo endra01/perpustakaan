@@ -48,9 +48,16 @@ public class LoanController extends BaseController {
     public RestResult update(Loan entity){
         RestResult result = new RestResult(StatusCode.OPERATION_FAILED);
         if (entity != null){
-
+            result.setData(service.update(entity));
+            result.setStatus(service.update(entity) != null ? StatusCode.UPDATE_SUCCESS : StatusCode.UPDATE_FAILED);
         }
         return result;
+    }
+
+    @PreAuthorize("permitAll()")
+    @DeleteMapping(value = "{id}")
+    public RestResult delete(@PathVariable Long id){
+        return new RestResult(service.delete(id) ? StatusCode.DELETE_SUCCESS : StatusCode.DELETE_FAILED);
     }
 
 }

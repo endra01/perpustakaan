@@ -28,12 +28,19 @@ public class LoanService extends BaseService<Loan> {
         return dao.save(entity);
     }
 
-   /* @Transactional
+   @Transactional
     public Loan update(Loan entity){
         if (entity.getId() != null){
             Loan reference = getDAO().findReference(entity.getId());
             reference.setReturnDate(entity.getReturnDate() != null ? entity.getReturnDate() : new Date());
             reference.setStatus(reference.getStatus().equals(Loan.StatusLoan.BORROWED) ? Loan.StatusLoan.RETURNED : reference.getStatus());
+
+            entity.setLoanDate(reference.getLoanDate());
+            entity.setReturnDate(reference.getReturnDate());
+            entity.setStatus(reference.getStatus());
+
+            return entity;
         }
-    }*/
+        return null;
+    }
 }
