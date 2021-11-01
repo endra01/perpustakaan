@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
-public class AuthenticationController extends BaseController{
+public class AuthenticationController extends BaseController {
     @Autowired
     private UserService service;
 
     @PreAuthorize("permitAll()")
     @PostMapping(value = "do-login")
-    public RestResult doLogin(@RequestBody User user){
+    public RestResult doLogin(@RequestBody User user) {
         return service.login(user);
     }
 
     @PreAuthorize("permitAll()")
-    @PostMapping(value = "do-register"){
-        public RestResult register(@RequestBody User param){
-            return new RestResult(service.register(param, User.Role.ROLE_USER));
-        }
+    @PostMapping(value = "do-register")
+    public RestResult register(@RequestBody User param) {
+        return new RestResult(service.register(param, User.Role.ROLE_USER));
     }
 }

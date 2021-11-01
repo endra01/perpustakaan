@@ -44,7 +44,7 @@ public class UserService extends BaseService<User> {
     public RestResult login(User param){
         RestResult result = new RestResult(StatusCode.PASSWORD_OR_USER_NOT_REGISTERED);
         User curentUser = dao.findOne(param);
-        if (curentUser != null){
+        if (curentUser == null){
             return result;
         }else if(curentUser.getPassword() != null && BCrypt.checkpw(param.getPassword(), curentUser.getPassword())) {
             UserDetails userDetails = new org.springframework.security.core.userdetails.User(curentUser.getUsername(), curentUser.getPassword(), new ArrayList<>());

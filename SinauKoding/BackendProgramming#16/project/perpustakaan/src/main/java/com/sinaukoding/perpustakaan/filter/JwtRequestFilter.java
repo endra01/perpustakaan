@@ -1,14 +1,12 @@
 package com.sinaukoding.perpustakaan.filter;
 
+import com.sinaukoding.perpustakaan.entity.User;
 import com.sinaukoding.perpustakaan.service.JwtTokenService;
 import com.sinaukoding.perpustakaan.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
-import org.apache.catalina.User;
-import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -40,11 +38,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 username = jwtTokenService.getUsernameFromToken(jwtToken);
             }catch (IllegalArgumentException e){
                 System.out.println("Unable to get JWT Token");
+                e.printStackTrace();
             }catch (ExpiredJwtException e){
                 System.out.println("Token has expired");
             }
         }
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() != null){
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             User user = new User();
             user.setUsername(username);
             user = userService.findOne(user);

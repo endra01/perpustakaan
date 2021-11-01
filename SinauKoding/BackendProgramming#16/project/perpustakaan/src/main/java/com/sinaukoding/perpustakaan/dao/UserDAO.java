@@ -17,7 +17,7 @@ public class UserDAO extends BaseDAO<User>{
 
         if (param != null) {
             if (param.getUsername() != null) {
-                predicates.add(builder.equals(root.get("username"), param.getUsername()));
+                predicates.add(builder.equal(root.get("username"), param.getUsername()));
             }
         }
         return predicates;
